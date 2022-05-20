@@ -1,4 +1,5 @@
 from discord.ext import commands
+import discord
 
 from .errors import MustBeSameChannel, NotConnectedToVoice, PlayerNotConnected
 
