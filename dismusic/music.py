@@ -108,7 +108,7 @@ class Music(commands.Cog):
                     f"[dismusic] ERROR - Failed to create node {config['host']}:{config['port']}"
                 )
 
-    @commands.command(aliases=["con"])
+    @commands.command(aliases=["join"])
     @voice_connected()
     async def connect(self, ctx: commands.Context):
         """Connect the player"""
