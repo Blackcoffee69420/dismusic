@@ -5,8 +5,9 @@ from .errors import MustBeSameChannel, NotConnectedToVoice, PlayerNotConnected
 
 def voice_connected():
     def predicate(ctx: commands.Context):
+        em=discord.Embed(title="Error",description="You are not connected to any voice channel.")
         if not ctx.author.voice:
-            raise NotConnectedToVoice("You are not connected to any voice channel.")
+            raise NotConnectedToVoice(embed=em)
 
         return True
 
