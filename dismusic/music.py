@@ -108,7 +108,7 @@ class Music(commands.Cog):
                     f"[dismusic] ERROR - Failed to create node {config['host']}:{config['port']}"
                 )
 
-    @commands.command(aliases=["join"])
+    @commands.command(aliases=["join","con"])
     @voice_connected()
     async def connect(self, ctx: commands.Context):
         """Connect the player"""
@@ -128,7 +128,7 @@ class Music(commands.Cog):
 
         await msg.edit(content=f"Connected to **`{player.channel.name}`**")
 
-    @commands.group(aliases=["p"], invoke_without_command=True)
+    @commands.group(aliases=["p","playing"], invoke_without_command=True)
     @voice_connected()
     async def play(self, ctx: commands.Context, *, query: str):
         """Play or add song to queue (Defaults to YouTube)"""
@@ -142,7 +142,7 @@ class Music(commands.Cog):
         await ctx.invoke(self.connect)
         await self.play_track(ctx, query, "yt")
 
-    @play.command(aliases=["ytmusic"])
+    @play.command(aliases=["ytmusic","ytm"])
     @voice_connected()
     async def youtubemusic(self, ctx: commands.Context, *, query: str):
         """Play a YouTubeMusic track"""
@@ -163,7 +163,7 @@ class Music(commands.Cog):
         await ctx.invoke(self.connect)
         await self.play_track(ctx, query, "spotify")
 
-    @commands.command(aliases=["vol"])
+    @commands.command(aliases=["vol","v"])
     @voice_channel_player()
     async def volume(self, ctx: commands.Context, vol: int, forced=False):
         """Set volume"""
@@ -178,7 +178,7 @@ class Music(commands.Cog):
         await player.set_volume(vol)
         await ctx.send(f"Volume set to {vol} :loud_sound:")
 
-    @commands.command(aliases=["disconnect", "dc"])
+    @commands.command(aliases=["disconnect", "dc","leave"])
     @voice_channel_player()
     async def stop(self, ctx: commands.Context):
         """Stop the player"""
@@ -188,7 +188,7 @@ class Music(commands.Cog):
         await ctx.send("Stopped the player :stop_button: ")
         self.bot.dispatch("dismusic_player_stop", player)
 
-    @commands.command()
+    @commands.command(aliases=["pau","paus"])
     @voice_channel_player()
     async def pause(self, ctx: commands.Context):
         """Pause the player"""
@@ -204,7 +204,7 @@ class Music(commands.Cog):
 
         await ctx.send("Player is not playing anything.")
 
-    @commands.command()
+    @commands.command(aliases=["res"])
     @voice_channel_player()
     async def resume(self, ctx: commands.Context):
         """Resume the player"""
@@ -220,7 +220,7 @@ class Music(commands.Cog):
 
         await ctx.send("Player is not playing anything.")
 
-    @commands.command()
+    @commands.command(aliases=["next","forward"])
     @voice_channel_player()
     async def skip(self, ctx: commands.Context):
         """Skip to next song in the queue."""
@@ -276,7 +276,7 @@ class Music(commands.Cog):
         paginator = Paginator(ctx, player)
         await paginator.start()
 
-    @commands.command(aliases=["np"])
+    @commands.command(aliases=["np","current"])
     @voice_channel_player()
     async def nowplaying(self, ctx: commands.Context):
         """Currently playing song information"""
